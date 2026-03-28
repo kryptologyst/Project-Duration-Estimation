@@ -1,0 +1,42 @@
+# Default configuration for project duration estimation
+data:
+  synthetic:
+    n_tasks: 10
+    min_duration: 1.0
+    max_duration: 10.0
+    dependency_probability: 0.3
+    seed: 42
+  paths:
+    raw: "data/raw/"
+    processed: "data/processed/"
+    synthetic: "data/synthetic/"
+
+models:
+  cpm:
+    enabled: true
+    weight_attribute: "duration"
+  pert:
+    enabled: true
+    confidence_levels: [0.8, 0.9, 0.95]
+    simulation_runs: 10000
+  monte_carlo:
+    enabled: true
+    n_simulations: 10000
+    confidence_levels: [0.8, 0.9, 0.95]
+
+evaluation:
+  metrics: ["duration", "critical_path_length", "slack_time", "risk_score"]
+  cross_validation:
+    enabled: false
+    n_folds: 5
+
+visualization:
+  figure_size: [12, 8]
+  dpi: 300
+  style: "seaborn-v0_8"
+  save_format: "png"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/project_duration.log"
